@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c2hliaou5jt1k" path="res://assets/coffee shop.png" id="5_85dgi"]
 [ext_resource type="Texture2D" uid="uid://bwjw7q7jq2inm" path="res://assets/assets (outside).png" id="6_85dgi"]
 [ext_resource type="Texture2D" uid="uid://bfgqujd15kj1y" path="res://assets/jobless person.png" id="7_1pv4f"]
+[ext_resource type="Script" uid="uid://br8k73u1s0v5g" path="res://scene/teleportarea.gd" id="8_6nb34"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q77l7"]
 texture = ExtResource("1_0n7t8")
@@ -134,7 +135,10 @@ region_enabled = true
 region_rect = Rect2(0, 45.217045, 36.891914, 34.782955)
 
 [node name="teleportarea" type="Area2D" parent="." unique_id=1498204696]
+script = ExtResource("8_6nb34")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="teleportarea" unique_id=549939134]
 position = Vector2(164.5, -49.5)
 shape = SubResource("RectangleShape2D_mel2l")
+
+[connection signal="body_entered" from="teleportarea" to="player" method="_on_teleportarea_body_entered"]

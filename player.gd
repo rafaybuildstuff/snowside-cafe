@@ -51,3 +51,7 @@ func update_animations() -> void:
 	# Play animation if valid
 	if animated_sprite.sprite_frames and animated_sprite.sprite_frames.has_animation(target_anim):
 		animated_sprite.play(target_anim)
+
+
+func _on_teleportarea_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
