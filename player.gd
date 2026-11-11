@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # --- Variables and Configuration ---
-@export var movement_speed: float = 250.0
+@export var movement_speed: float = 200.0
 @export var jump_force: float = -300.0
 
 # Animation names matching your SpriteFrames panel
