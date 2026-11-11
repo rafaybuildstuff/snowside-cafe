@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bk202xmfhdx8n"]
+
+[ext_resource type="Script" uid="uid://ch85fhbnek65" path="res://scene/trash_can.gd" id="1_viupr"]
+[ext_resource type="Texture2D" uid="uid://bbaflyed06roq" path="res://assets/trash canl.png" id="1_vl8vf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mel2l"]
+size = Vector2(33, 39)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mel2l"]
+font_size = 10
+
+[node name="TrashCan" type="Area2D" unique_id=1318395125]
+z_index = -1
+script = ExtResource("1_viupr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2119438904]
+texture = ExtResource("1_vl8vf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1720072358]
+position = Vector2(-0.5, 6.5)
+shape = SubResource("RectangleShape2D_mel2l")
+
+[node name="Label" type="Label" parent="." unique_id=1533988025]
+texture_filter = 1
+offset_left = -26.0
+offset_top = -26.0
+offset_right = 14.0
+offset_bottom = -3.0
+label_settings = SubResource("LabelSettings_mel2l")

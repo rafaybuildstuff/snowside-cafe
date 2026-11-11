@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://dl123lcutqgwg"]
+
+[ext_resource type="Script" uid="uid://doohq3koaulr" path="res://customer.gd" id="1_ty3hb"]
+[ext_resource type="Texture2D" uid="uid://ciqfcmu8n8fnt" path="res://assets/customer.png" id="2_wkrjl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26p8j"]
+atlas = ExtResource("2_wkrjl")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh4kr"]
+atlas = ExtResource("2_wkrjl")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rt6j4"]
+atlas = ExtResource("2_wkrjl")
+region = Rect2(120, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roqwx"]
+atlas = ExtResource("2_wkrjl")
+region = Rect2(0, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ugde"]
+atlas = ExtResource("2_wkrjl")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3lrl"]
+atlas = ExtResource("2_wkrjl")
+region = Rect2(160, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2folu"]
+atlas = ExtResource("2_wkrjl")
+region = Rect2(40, 40, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mel2l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26p8j")
+}],
+"loop": 1,
+"name": &"sitting",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh4kr")
+}],
+"loop": 1,
+"name": &"walking backward",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rt6j4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roqwx")
+}],
+"loop": 1,
+"name": &"walking left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ugde")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3lrl")
+}],
+"loop": 1,
+"name": &"walking right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2folu")
+}],
+"loop": 1,
+"name": &"walking toward",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mel2l"]
+size = Vector2(27, 39)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mel2l"]
+font_size = 10
+
+[node name="Customer" type="CharacterBody2D" unique_id=1893898631]
+script = ExtResource("1_ty3hb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=947971873]
+sprite_frames = SubResource("SpriteFrames_mel2l")
+animation = &"walking right"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1542544695]
+position = Vector2(3.5, 0.5)
+shape = SubResource("RectangleShape2D_mel2l")
+
+[node name="Label" type="Label" parent="." unique_id=1796509061]
+offset_left = -16.0
+offset_top = -44.0
+offset_right = 24.0
+offset_bottom = -21.0
+label_settings = SubResource("LabelSettings_mel2l")

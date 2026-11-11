@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://bjfw8vl0rginc"]
+
+[ext_resource type="Script" uid="uid://6yhg4btoj8x6" path="res://tabel.gd" id="1_nt4qe"]
+[ext_resource type="Texture2D" uid="uid://b22g6huuuh675" path="res://assets/table and chair.png" id="2_vs584"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b41b8"]
+atlas = ExtResource("2_vs584")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ar7fo"]
+atlas = ExtResource("2_vs584")
+region = Rect2(40, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwpe6"]
+atlas = ExtResource("2_vs584")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvu46"]
+atlas = ExtResource("2_vs584")
+region = Rect2(0, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o78c"]
+atlas = ExtResource("2_vs584")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mel2l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b41b8")
+}],
+"loop": 1,
+"name": &"clean",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ar7fo")
+}],
+"loop": 1,
+"name": &"one coffee",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwpe6")
+}],
+"loop": 1,
+"name": &"one sandwish",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvu46")
+}],
+"loop": 1,
+"name": &"two coffee",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0o78c")
+}],
+"loop": 1,
+"name": &"two sandwish",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nt4qe"]
+size = Vector2(36, 30)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3cfvr"]
+font_size = 10
+
+[node name="Tabel" type="Area2D" unique_id=806302714]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_nt4qe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=849438091]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_mel2l")
+animation = &"clean"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1623991680]
+position = Vector2(-1.3333324, 3)
+shape = SubResource("RectangleShape2D_nt4qe")
+
+[node name="Label" type="Label" parent="." unique_id=1225512926]
+texture_filter = 1
+offset_left = -18.666664
+offset_top = -10.0
+offset_right = 14.333336
+offset_bottom = 13.0
+label_settings = SubResource("LabelSettings_3cfvr")

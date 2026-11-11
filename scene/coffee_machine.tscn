@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cfago4o5broym"]
+
+[ext_resource type="Script" uid="uid://c57e041qdcmpp" path="res://coffee_machine.gd" id="1_qlned"]
+[ext_resource type="Texture2D" uid="uid://4qtynfyn3gs0" path="res://assets/New Piskel (1).png" id="2_ndh30"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mel2l"]
+size = Vector2(35, 31)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ndh30"]
+font_size = 10
+
+[node name="CoffeeMachine" type="Area2D" unique_id=39756262]
+script = ExtResource("1_qlned")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=87269169]
+texture = ExtResource("2_ndh30")
+region_enabled = true
+region_rect = Rect2(41.060005, 45.343693, 38.939995, 34.656307)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1177463305]
+texture_filter = 1
+position = Vector2(-0.5, 1.5)
+shape = SubResource("RectangleShape2D_mel2l")
+
+[node name="Label" type="Label" parent="." unique_id=1178158446]
+offset_left = -29.0
+offset_top = -23.0
+offset_right = -1.0
+label_settings = SubResource("LabelSettings_ndh30")
