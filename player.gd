@@ -1,64 +1,53 @@
 extends CharacterBody2D
 
-# Movement & Speed
-@export var max_speed: float = 200.0
-@export var acceleration: float = 1200.0
-@export var friction: float = 1000.0
+# --- Variables and Configuration ---
+@export var movement_speed: float = 250.0
+@export var jump_force: float = -300.0
 
-# Jump & Gravity Physics
-@export var jump_force: float = -380.0
-@export var gravity: float = 980.0
-@export var fall_gravity_multiplier: float = 1.5 # Falling feels snappier
-@export var variable_jump_multiplier: float = 0.5 # Releasing jump mid-air cuts height
+# Animation names matching your SpriteFrames panel
+@export var anim_idle: String = "idle"
+@export var anim_walk: String = "walk"
+@export var anim_jump: String = "jump"
 
-# Coyote Time & Jump Buffering (makes controls feel responsive)
-@export var coyote_time: float = 0.15
-@export var jump_buffer_time: float = 0.1
-
-var coyote_timer: float = 0.0
-var jump_buffer_timer: float = 0.0
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
-	# 1. Update timers
-	if is_on_floor():
-		coyote_timer = coyote_time
+	# 1. Apply gravity
+	velocity.y += gravity * delta
+
+	# 2. Horizontal movement using built-in input directions (A/D or Left/Right Arrow keys)
+	var direction := Input.get_axis("ui_left", "ui_right")
+	if direction != 0:
+		velocity.x = direction * movement_speed
 	else:
-		coyote_timer -= delta
+		velocity.x = move_toward(velocity.x, 0, movement_speed * 0.1)
 
-	if Input.is_action_just_pressed("ui_accept"):
-		jump_buffer_timer = jump_buffer_time
-	else:
-		jump_buffer_timer -= delta
-
-	# 2. Gravity logic
-	if not is_on_floor():
-		var current_gravity = gravity
-		# Fall faster for weightier jumping
-		if velocity.y > 0:
-			current_gravity *= fall_gravity_multiplier
-		velocity.y += current_gravity * delta
-
-	# 3. Jump logic (Handles Coyote Time + Jump Buffer)
-	if jump_buffer_timer > 0.0 and coyote_timer > 0.0:
+	# 3. Jump input using your "jump" action
+	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_force
-		jump_buffer_timer = 0.0
-		coyote_timer = 0.0
 
-	# Variable jump height: release jump button early to short-hop
-	if Input.is_action_just_released("ui_accept") and velocity.y < 0:
-		velocity.y *= variable_jump_multiplier
+	# 4. Handle animations safely
+	update_animations()
 
-	# 4. Horizontal movement
-	var input_direction := Input.get_axis("ui_left", "ui_right")
-	
-	if input_direction != 0:
-		velocity.x = move_toward(velocity.x, input_direction * max_speed, acceleration * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, friction * delta)
-
-	# 5. Execute movement
+	# 5. Apply movement
 	move_and_slide()
 
-	# 6. Flip sprite visually
-	if input_direction != 0:
-		$Sprite2D.scale.x = sign(input_direction)
+# --- Helper Function for Animations ---
+func update_animations() -> void:
+	# Flip sprite horizontally depending on left/right movement
+	if velocity.x > 0:
+		animated_sprite.flip_h = false
+	elif velocity.x < 0:
+		animated_sprite.flip_h = true
+
+	# Select state animation
+	var target_anim = anim_idle
+	if not is_on_floor():
+		target_anim = anim_jump
+	elif velocity.x != 0:
+		target_anim = anim_walk
+
+	# Play animation if valid
+	if animated_sprite.sprite_frames and animated_sprite.sprite_frames.has_animation(target_anim):
+		animated_sprite.play(target_anim)

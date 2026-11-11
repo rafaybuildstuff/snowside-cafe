@@ -1,3 +1,56 @@
 [gd_scene format=3 uid="uid://pkpdvl7qs4ue"]
 
+[ext_resource type="Texture2D" uid="uid://c58moocmco658" path="res://assets/blocks.png" id="1_0n7t8"]
+[ext_resource type="PackedScene" uid="uid://dht02jfskg0p3" path="res://scene/player.tscn" id="2_4q34w"]
+[ext_resource type="Texture2D" uid="uid://cvfdbl3beo1xt" path="res://assets/hi.png" id="2_q77l7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q77l7"]
+texture = ExtResource("1_0n7t8")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
+0:1/0 = 0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mnmx3"]
+load_path = "res://.godot/imported/go.png-7cbb7e43929290c6abf7d3477e9611a1.ctex"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mnmx3"]
+texture = SubResource("CompressedTexture2D_mnmx3")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_85dgi"]
+texture = ExtResource("2_q77l7")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
+
+[sub_resource type="TileSet" id="TileSet_3cfvr"]
+tile_size = Vector2i(40, 40)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_q77l7")
+sources/1 = SubResource("TileSetAtlasSource_mnmx3")
+sources/2 = SubResource("TileSetAtlasSource_85dgi")
+
 [node name="first scene" type="Node2D" unique_id=542310071]
+
+[node name="blocks" type="Node" parent="." unique_id=28975616]
+
+[node name="tile" type="TileMap" parent="blocks" unique_id=286099017]
+tile_set = SubResource("TileSet_3cfvr")
+rendering_quadrant_size = 40
+format = 2
+layer_0/tile_data = PackedInt32Array(131059, 65536, 0, 131060, 65536, 0, 131061, 65536, 0, 131062, 65536, 0, 131063, 65536, 0, 131064, 65536, 0, 131065, 65536, 0, 131066, 65536, 0, 131067, 65536, 0, 131068, 65536, 0, 131069, 65536, 0, 131070, 65536, 0, 131071, 65536, 0, 65536, 65536, 0, 65537, 65536, 0, 65538, 65536, 0, 65539, 65536, 0, 65540, 65536, 0, 65541, 65536, 0, 65542, 65536, 0, 65543, 65536, 0, 65544, 65536, 0, 65545, 65536, 0, 65546, 65536, 0, 65547, 65536, 0, 65523, 2, 0, 65524, 2, 0, 65525, 2, 0, 65526, 2, 0, 65527, 2, 0, 65528, 2, 0, 65529, 2, 0, 65530, 2, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 2, 0, 65535, 2, 0, 0, 2, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 4, 2, 0, 5, 2, 0, 6, 2, 0, 7, 2, 0, 8, 2, 0, 9, 2, 0, 10, 2, 0, 11, 2, 0)
+
+[node name="player" parent="." unique_id=669632881 instance=ExtResource("2_4q34w")]
+position = Vector2(18, -22)
+
+[node name="Camera2D" type="Camera2D" parent="player" unique_id=45480272]
+position = Vector2(-18, 22)
+zoom = Vector2(2, 2)
+limit_left = -500
+limit_right = 450
+limit_bottom = 70
