@@ -72,7 +72,10 @@ size = Vector2(36, 30)
 [sub_resource type="LabelSettings" id="LabelSettings_3cfvr"]
 font_size = 10
 
-[node name="Tabel" type="Area2D" unique_id=806302714]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mel2l"]
+size = Vector2(36.333336, 32)
+
+[node name="Tabel" type="Area2D" unique_id=714907687]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_nt4qe")
 
@@ -92,3 +95,9 @@ offset_top = -10.0
 offset_right = 14.333336
 offset_bottom = 13.0
 label_settings = SubResource("LabelSettings_3cfvr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1664697590]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=533058741]
+position = Vector2(-1.5, 2)
+shape = SubResource("RectangleShape2D_mel2l")

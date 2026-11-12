@@ -5,18 +5,17 @@ extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var prompt_label: Label = $Label
 
-enum CustomerState { WAITING_TO_SPAWN, WALKING_TO_SEAT, SITTING, WAITING_FOR_ORDER, DRINKING, LEAVING }
+enum CustomerState { WAITING_TO_SPAWN, WALKING_PATH, SITTING, WAITING_FOR_ORDER, DRINKING, LEAVING }
 var current_state: CustomerState = CustomerState.WAITING_TO_SPAWN
 
-var target_seat: Area2D = null
+var path_points: Array[Node2D] = []
+var current_point_index: int = 0
+var sit_spot: Node2D = null
 
 func _ready() -> void:
-	# Make customer invisible initially for the fade-in effect
 	modulate.a = 0.0
 	if prompt_label:
 		prompt_label.visible = false
-		
-	# Start the spawn sequence
 	spawn_sequence()
 
 func spawn_sequence() -> void:
@@ -30,23 +29,34 @@ func spawn_sequence() -> void:
 	
 	var current_scene = get_tree().current_scene
 	if current_scene:
-		target_seat = current_scene.find_child("Seat1", true, false)
+		var wp1 = current_scene.find_child("Waypoint1", true, false)
+		sit_spot = current_scene.find_child("SitSpot1", true, false)
+		if not sit_spot:
+			sit_spot = current_scene.find_child("Seat1", true, false)
 		
-	if target_seat:
-		print("Customer walking towards Seat1...")
-		current_state = CustomerState.WALKING_TO_SEAT
+		path_points.clear()
+		if wp1:
+			path_points.append(wp1)
+		if sit_spot:
+			path_points.append(sit_spot)
+			
+	if path_points.size() > 0:
+		current_point_index = 0
+		current_state = CustomerState.WALKING_PATH
 	else:
-		print("WARNING: Seat1 could not be found!")
+		print("WARNING: Seat/Waypoint not found!")
 
 func _physics_process(_delta: float) -> void:
 	match current_state:
-		CustomerState.WALKING_TO_SEAT:
-			if target_seat:
-				# Calculate direction vector towards the seat
-				var direction = global_position.direction_to(target_seat.global_position)
+		CustomerState.WALKING_PATH:
+			if current_point_index < path_points.size():
+				var target_node = path_points[current_point_index]
+				var direction = global_position.direction_to(target_node.global_position)
 				velocity = direction * movement_speed
 				
-				# Play walking animation based on direction
+				# Keep scale normal while walking
+				animated_sprite.scale = Vector2(1.0, 1.0)
+				
 				if abs(direction.x) > abs(direction.y):
 					if direction.x > 0:
 						animated_sprite.play("walking right")
@@ -58,27 +68,31 @@ func _physics_process(_delta: float) -> void:
 					else:
 						animated_sprite.play("walking backward")
 				
-				# Check if customer has reached Seat1
-				if global_position.distance_to(target_seat.global_position) < 12.0:
-					velocity = Vector2.ZERO
-					sit_down()
+				if global_position.distance_to(target_node.global_position) < 6.0:
+					current_point_index += 1
+					if current_point_index >= path_points.size():
+						velocity = Vector2.ZERO
+						global_position = target_node.global_position
+						sit_down()
 			else:
 				velocity = Vector2.ZERO
 				
 		CustomerState.SITTING, CustomerState.WAITING_FOR_ORDER, CustomerState.DRINKING:
 			velocity = Vector2.ZERO
 
-	# This is what stops the customer from flying through things!
 	move_and_slide()
 
 func sit_down() -> void:
 	current_state = CustomerState.SITTING
 	velocity = Vector2.ZERO
 	
+	# Increase size slightly when sitting so she fits the chair nicely (you can change 1.2 to 1.1 or 1.3 if needed)
+	animated_sprite.scale = Vector2(1.2, 1.2)
+	
 	if animated_sprite.sprite_frames.has_animation("sitting"):
 		animated_sprite.play("sitting")
-		
-	print("Customer sat down successfully!")
+	
+	animated_sprite.flip_h = false
 	
 	await get_tree().create_timer(0.2).timeout
 	
@@ -86,9 +100,6 @@ func sit_down() -> void:
 	if prompt_label:
 		prompt_label.text = "One coffee"
 		prompt_label.visible = true
-		
-	if target_seat and target_seat.has_method("customer_seated"):
-		target_seat.customer_seated(self)
 
 func start_coffee_countdown() -> void:
 	current_state = CustomerState.DRINKING
@@ -98,4 +109,3 @@ func start_coffee_countdown() -> void:
 			await get_tree().create_timer(1.0).timeout
 			
 		prompt_label.visible = false
-	print("Customer finished coffee!")

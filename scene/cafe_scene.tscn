@@ -63,7 +63,7 @@ size = Vector2(42.5, 34.5)
 font_size = 10
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijeb4"]
-size = Vector2(14.589478, 11.11578)
+size = Vector2(6.2526336, 5.557914)
 
 [node name="cafe scene" type="Node2D" unique_id=861144632]
 
@@ -73,7 +73,7 @@ position = Vector2(38, -1)
 [node name="Camera2D" type="Camera2D" parent="playerr" unique_id=606543960]
 position = Vector2(-38, 1)
 zoom = Vector2(2.5, 2.5)
-limit_left = -65
+limit_left = -80
 limit_top = -323
 limit_right = 562
 limit_bottom = 319
@@ -204,7 +204,6 @@ position = Vector2(297, -283)
 script = ExtResource("8_ccijo")
 
 [node name="Tabel" parent="." unique_id=806302714 instance=ExtResource("9_ohn2x")]
-z_index = -2
 position = Vector2(58, -175)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Tabel" unique_id=312507981]
@@ -220,6 +219,10 @@ offset_right = 280.0
 offset_bottom = -40.333336
 label_settings = SubResource("LabelSettings_ccijo")
 
+[node name="Customer" parent="." unique_id=1893898631 instance=ExtResource("11_fcdfh")]
+z_index = 1
+position = Vector2(11, -35)
+
 [node name="seatss" type="Node" parent="." unique_id=889826634]
 
 [node name="Seat1" type="Area2D" parent="seatss" unique_id=448857428]
@@ -228,16 +231,17 @@ position = Vector2(57.000004, -223.00002)
 scale = Vector2(1.4393939, 1.439394)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat1" unique_id=96645176]
-position = Vector2(-2.4315834, 13.200012)
+position = Vector2(-1.0421066, 15.284241)
 shape = SubResource("RectangleShape2D_ijeb4")
 
 [node name="Sprite2D" type="Sprite2D" parent="seatss/Seat1" unique_id=636783602]
 z_index = -1
-position = Vector2(-2.026558e-06, 5.5579023)
-scale = Vector2(1.0835788, 1.0835788)
+position = Vector2(0.6947344, 7.64212)
+scale = Vector2(0.9030525, 0.97599995)
 texture = ExtResource("10_hekup")
 region_enabled = true
 region_rect = Rect2(88.9042, 51.57639, 25.401352, 32.739513)
 
-[node name="Customer" parent="." unique_id=1893898631 instance=ExtResource("11_fcdfh")]
-position = Vector2(11, -35)
+[node name="Waypoint1" type="Marker2D" parent="." unique_id=529539875]
+position = Vector2(9, -221)
+gizmo_extents = 40.0

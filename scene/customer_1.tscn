@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://cmvxaw6qtljfk"]
+
+[ext_resource type="Texture2D" uid="uid://ciqfcmu8n8fnt" path="res://assets/customer.png" id="1_p7ty1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdh8i"]
+atlas = ExtResource("1_p7ty1")
+region = Rect2(40, 120, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjfu7"]
+atlas = ExtResource("1_p7ty1")
+region = Rect2(160, 80, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sy5cj"]
+atlas = ExtResource("1_p7ty1")
+region = Rect2(0, 120, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvjdl"]
+atlas = ExtResource("1_p7ty1")
+region = Rect2(160, 120, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8ma5"]
+atlas = ExtResource("1_p7ty1")
+region = Rect2(0, 160, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7hkp"]
+atlas = ExtResource("1_p7ty1")
+region = Rect2(80, 120, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4oh3"]
+atlas = ExtResource("1_p7ty1")
+region = Rect2(120, 120, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mel2l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdh8i")
+}],
+"loop": 1,
+"name": &"sitting",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjfu7")
+}],
+"loop": 1,
+"name": &"walking backward",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sy5cj")
+}],
+"loop": 1,
+"name": &"walking forward",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvjdl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8ma5")
+}],
+"loop": 1,
+"name": &"walking left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7hkp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4oh3")
+}],
+"loop": 1,
+"name": &"walking right",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mel2l"]
+
+[node name="Customer1" type="CharacterBody2D" unique_id=821156017]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1916920335]
+sprite_frames = SubResource("SpriteFrames_mel2l")
+animation = &"walking right"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1421493668]
+
+[node name="Label" type="Label" parent="." unique_id=947802247]
+texture_filter = 1
+offset_left = -16.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = -1.0
+label_settings = SubResource("LabelSettings_mel2l")

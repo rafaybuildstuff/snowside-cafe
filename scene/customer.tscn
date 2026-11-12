@@ -81,7 +81,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mel2l"]
-size = Vector2(27, 39)
+size = Vector2(29, 39)
 
 [sub_resource type="LabelSettings" id="LabelSettings_mel2l"]
 font_size = 10
@@ -91,15 +91,14 @@ script = ExtResource("1_ty3hb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=947971873]
 sprite_frames = SubResource("SpriteFrames_mel2l")
-animation = &"walking right"
+animation = &"walking backward"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1542544695]
-position = Vector2(3.5, 0.5)
+position = Vector2(2.5, 0.5)
 shape = SubResource("RectangleShape2D_mel2l")
 
 [node name="Label" type="Label" parent="." unique_id=1796509061]
-offset_left = -16.0
-offset_top = -44.0
-offset_right = 24.0
-offset_bottom = -21.0
+offset_left = -18.0
+offset_top = -23.0
+offset_right = 22.0
 label_settings = SubResource("LabelSettings_mel2l")
