@@ -10,8 +10,11 @@
 [ext_resource type="Script" uid="uid://dq860b1bj872" path="res://scene/sandwish.gd" id="8_ccijo"]
 [ext_resource type="PackedScene" uid="uid://bjfw8vl0rginc" path="res://scene/tabel.tscn" id="9_ohn2x"]
 [ext_resource type="Texture2D" uid="uid://b22g6huuuh675" path="res://assets/table and chair.png" id="10_hekup"]
+[ext_resource type="PackedScene" uid="uid://bbku0osqg1jqs" path="res://scene/upgrade_1.tscn" id="11_6g4wj"]
 [ext_resource type="PackedScene" uid="uid://dl123lcutqgwg" path="res://scene/customer.tscn" id="11_fcdfh"]
 [ext_resource type="PackedScene" uid="uid://cmvxaw6qtljfk" path="res://scene/customer_2.tscn" id="11_omuhi"]
+[ext_resource type="FontFile" uid="uid://d0ebs3dw125h3" path="res://assets/heading.ttf" id="13_omuhi"]
+[ext_resource type="Texture2D" uid="uid://cybu3m3wdq4sr" path="res://assets/money.png" id="14_ls2p7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kw27q"]
 texture = ExtResource("2_3v2pm")
@@ -70,7 +73,7 @@ size = Vector2(42.5, 34.5)
 font_size = 10
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijeb4"]
-size = Vector2(9.726318, 7.6421313)
+size = Vector2(9.726311, 7.6421313)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2f55"]
 size = Vector2(11, 9)
@@ -260,6 +263,24 @@ texture = ExtResource("10_hekup")
 region_enabled = true
 region_rect = Rect2(88.9042, 51.57639, 25.401352, 32.739513)
 
+[node name="Seat3" type="Area2D" parent="seatss" unique_id=1806613756]
+z_index = -1
+position = Vector2(57.000004, -223.00002)
+scale = Vector2(1.4393939, 1.439394)
+
+[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat3" unique_id=1400458907]
+visible = false
+z_index = -1
+position = Vector2(113.936844, 7.6421204)
+scale = Vector2(0.9030525, 0.97599995)
+texture = ExtResource("10_hekup")
+region_enabled = true
+region_rect = Rect2(88.9042, 51.57639, 25.401352, 32.739513)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat3" unique_id=1184166708]
+position = Vector2(111.852646, 14.242142)
+shape = SubResource("RectangleShape2D_ijeb4")
+
 [node name="Seat2" type="Area2D" parent="seatss" unique_id=706042183]
 
 [node name="Sprite2D" type="Sprite2D" parent="seatss/Seat2" unique_id=521626932]
@@ -270,6 +291,19 @@ region_rect = Rect2(0, 81.47476, 38.31909, 38.525238)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat2" unique_id=1056795936]
 position = Vector2(56, -139)
+shape = SubResource("RectangleShape2D_w2f55")
+
+[node name="Seat4" type="Area2D" parent="seatss" unique_id=163978625]
+
+[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat4" unique_id=1878713069]
+visible = false
+position = Vector2(218, -135)
+texture = ExtResource("10_hekup")
+region_enabled = true
+region_rect = Rect2(0, 81.47476, 38.31909, 38.525238)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat4" unique_id=624475184]
+position = Vector2(219, -139)
 shape = SubResource("RectangleShape2D_w2f55")
 
 [node name="waypointss" type="Node" parent="." unique_id=463387817]
@@ -289,3 +323,25 @@ position = Vector2(11, -35)
 
 [node name="Customer2" parent="customers" unique_id=821156017 instance=ExtResource("11_omuhi")]
 position = Vector2(3, 23)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1670507349]
+
+[node name="MoneyLabel" type="Label" parent="HUD" unique_id=1636477049]
+unique_name_in_owner = true
+offset_left = 33.0
+offset_top = 28.0
+offset_right = 161.0
+offset_bottom = 51.0
+theme_override_fonts/font = ExtResource("13_omuhi")
+text = "Money : 0"
+
+[node name="TextureRect" type="TextureRect" parent="HUD" unique_id=297704759]
+offset_left = 5.0
+offset_top = 25.0
+offset_right = 45.0
+offset_bottom = 65.00001
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("14_ls2p7")
+
+[node name="upgrade 1" parent="." unique_id=1756008415 instance=ExtResource("11_6g4wj")]
+position = Vector2(219, -170)

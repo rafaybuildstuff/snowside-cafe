@@ -7,6 +7,9 @@ extends CharacterBody2D
 @export var has_cup: bool = false
 @export var has_food: bool = false
 
+# --- Money Score ---
+var score: int = 0
+
 # --- Reference to AnimatedSprite2D ---
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -88,3 +91,9 @@ func update_cafe_animations(input_vector: Vector2) -> void:
 	# Safely play the animation if it exists in your SpriteFrames
 	if animated_sprite.sprite_frames and animated_sprite.sprite_frames.has_animation(target_anim):
 		animated_sprite.play(target_anim)
+
+# --- Money Collection Handler ---
+func add_money(amount: int) -> void:
+	score += amount
+	if has_node("%MoneyLabel"):
+		get_node("%MoneyLabel").text = "Money: " + str(score)

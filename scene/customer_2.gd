@@ -19,13 +19,11 @@ func _ready() -> void:
 	spawn_sequence()
 
 func spawn_sequence() -> void:
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(1.0).timeout
 	
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 1.0, 1.0)
 	await tween.finished
-	
-	await get_tree().create_timer(0.5).timeout
 	
 	var current_scene = get_tree().current_scene
 	if current_scene:
@@ -48,7 +46,7 @@ func spawn_sequence() -> void:
 		current_point_index = 0
 		current_state = Customer2State.WALKING_PATH
 	else:
-		print("WARNING: Seat2 or Waypoint2 not found!")
+		print("WARNING: Seat2 or Waypoint2 not found for Customer 2!")
 
 func _physics_process(_delta: float) -> void:
 	match current_state:

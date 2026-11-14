@@ -74,21 +74,49 @@ func trigger_customers_sandwich() -> void:
 		if cust.has_method("start_sandwich_countdown"):
 			cust.start_sandwich_countdown()
 			
-	# Wait 3 seconds while they eat
+	# Wait 3 seconds while they finish eating
 	await get_tree().create_timer(3.0).timeout
 	
-	# SPAWN MONEY ON THE LEFT SIDE OF THE TABLE AUTOMATICALLY
+	# SPAWN MONEY ON THE LEFT SIDE OF THE TABLE
 	var money_scene = load("res://scene/money.tscn")
 	if money_scene:
 		var money_instance = money_scene.instantiate()
 		var current_scene = get_tree().current_scene
 		if current_scene:
 			current_scene.add_child(money_instance)
-			# Places money 40 pixels to the left of the table center
 			money_instance.global_position = global_position + Vector2(-40, 0)
 
+	# Reset table back to clean, ready for new customers
 	state = TableState.CLEAN_WAITING_COFFEE
 	update_table_appearance()
+	
+	# Automatically spawn a brand new pair of customers for this table
+	spawn_new_customers()
+
+func spawn_new_customers() -> void:
+	var current_scene = get_tree().current_scene
+	if not current_scene:
+		return
+		
+	var cust1_scene = load("res://scene/customer.tscn")
+	var cust2_scene = load("res://scene/customer_2.tscn")
+	
+	if cust1_scene and cust2_scene:
+		var c1 = cust1_scene.instantiate()
+		var c2 = cust2_scene.instantiate()
+		
+		# Add them into the "customers" folder if it exists, otherwise add to root
+		var customers_folder = current_scene.find_child("customers", true, false)
+		if customers_folder:
+			customers_folder.add_child(c1)
+			customers_folder.add_child(c2)
+		else:
+			current_scene.add_child(c1)
+			current_scene.add_child(c2)
+		
+		# Spawn them inside the cafe at the exact indoor entrance coordinates
+		c1.global_position = Vector2(10, -20)
+		c2.global_position = Vector2(35, 0)
 
 func update_table_appearance() -> void:
 	if not animated_sprite or not animated_sprite.sprite_frames:

@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://bm6c0o4kjqd6g"]
+
+[ext_resource type="Texture2D" uid="uid://ciqfcmu8n8fnt" path="res://assets/customer.png" id="1_mc7od"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f215r"]
+atlas = ExtResource("1_mc7od")
+region = Rect2(120, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gekq5"]
+atlas = ExtResource("1_mc7od")
+region = Rect2(80, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v5rp"]
+atlas = ExtResource("1_mc7od")
+region = Rect2(40, 80, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23ali"]
+atlas = ExtResource("1_mc7od")
+region = Rect2(80, 80, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxgho"]
+atlas = ExtResource("1_mc7od")
+region = Rect2(160, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qbpd"]
+atlas = ExtResource("1_mc7od")
+region = Rect2(0, 80, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx72y"]
+atlas = ExtResource("1_mc7od")
+region = Rect2(120, 80, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mel2l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f215r")
+}],
+"loop": 1,
+"name": &"sitting",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gekq5")
+}],
+"loop": 1,
+"name": &"walking backward",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5v5rp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23ali")
+}],
+"loop": 1,
+"name": &"walking left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxgho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qbpd")
+}],
+"loop": 1,
+"name": &"walking right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wx72y")
+}],
+"loop": 1,
+"name": &"walking toward",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_737ee"]
+size = Vector2(20, 34)
+
+[node name="Customer3" type="CharacterBody2D" unique_id=2040717893]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=57685985]
+sprite_frames = SubResource("SpriteFrames_mel2l")
+animation = &"walking backward"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=304846420]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_737ee")
+
+[node name="Label" type="Label" parent="." unique_id=1497681459]
+offset_left = -18.0
+offset_top = -21.0
+offset_right = 22.0
+offset_bottom = 2.0
