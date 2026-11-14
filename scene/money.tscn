@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://k3j0loj218gl"]
+
+[ext_resource type="Texture2D" uid="uid://cybu3m3wdq4sr" path="res://assets/money.png" id="1_givlx"]
+[ext_resource type="Script" uid="uid://chrcppgqk26eg" path="res://scene/money.gd" id="1_wbkft"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mel2l"]
+size = Vector2(36.414776, 23.520407)
+
+[node name="money" type="Area2D" unique_id=486117823]
+script = ExtResource("1_wbkft")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1839924493]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_givlx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1263479599]
+position = Vector2(-1, 1.0000001)
+rotation = -0.1762782
+scale = Vector2(0.6, 0.6)
+shape = SubResource("RectangleShape2D_mel2l")

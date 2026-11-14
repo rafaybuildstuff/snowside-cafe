@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bjfw8vl0rginc" path="res://scene/tabel.tscn" id="9_ohn2x"]
 [ext_resource type="Texture2D" uid="uid://b22g6huuuh675" path="res://assets/table and chair.png" id="10_hekup"]
 [ext_resource type="PackedScene" uid="uid://dl123lcutqgwg" path="res://scene/customer.tscn" id="11_fcdfh"]
+[ext_resource type="PackedScene" uid="uid://cmvxaw6qtljfk" path="res://scene/customer_2.tscn" id="11_omuhi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kw27q"]
 texture = ExtResource("2_3v2pm")
@@ -56,6 +57,12 @@ size = Vector2(119, 38.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lxoxb"]
 size = Vector2(85, 33.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhude"]
+size = Vector2(42, 38)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mel2l"]
+font_size = 10
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udj8g"]
 size = Vector2(42.5, 34.5)
 
@@ -63,7 +70,10 @@ size = Vector2(42.5, 34.5)
 font_size = 10
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijeb4"]
-size = Vector2(6.2526336, 5.557914)
+size = Vector2(9.726318, 7.6421313)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2f55"]
+size = Vector2(11, 9)
 
 [node name="cafe scene" type="Node2D" unique_id=861144632]
 
@@ -203,25 +213,33 @@ position = Vector2(297, -283)
 [node name="sandwish" type="Area2D" parent="." unique_id=557851773]
 script = ExtResource("8_ccijo")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sandwish" unique_id=380992876]
+position = Vector2(437, -237)
+shape = SubResource("RectangleShape2D_qhude")
+
+[node name="Label" type="Label" parent="sandwish" unique_id=1077915075]
+texture_filter = 1
+offset_left = 416.0
+offset_top = -257.0
+offset_right = 459.0
+offset_bottom = -234.0
+label_settings = SubResource("LabelSettings_mel2l")
+
 [node name="Tabel" parent="." unique_id=806302714 instance=ExtResource("9_ohn2x")]
 position = Vector2(58, -175)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Tabel" unique_id=312507981]
-position = Vector2(253.16667, -45.500008)
+position = Vector2(253.16667, -45.500015)
 scale = Vector2(0.6666667, 0.6666667)
 shape = SubResource("RectangleShape2D_udj8g")
 
 [node name="Label2" type="Label" parent="Tabel" unique_id=1791344834]
 texture_filter = 1
 offset_left = 240.00002
-offset_top = -63.333336
+offset_top = -63.33333
 offset_right = 280.0
-offset_bottom = -40.333336
+offset_bottom = -40.33333
 label_settings = SubResource("LabelSettings_ccijo")
-
-[node name="Customer" parent="." unique_id=1893898631 instance=ExtResource("11_fcdfh")]
-z_index = 1
-position = Vector2(11, -35)
 
 [node name="seatss" type="Node" parent="." unique_id=889826634]
 
@@ -231,7 +249,7 @@ position = Vector2(57.000004, -223.00002)
 scale = Vector2(1.4393939, 1.439394)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat1" unique_id=96645176]
-position = Vector2(-1.0421066, 15.284241)
+position = Vector2(-1.3894768, 14.242142)
 shape = SubResource("RectangleShape2D_ijeb4")
 
 [node name="Sprite2D" type="Sprite2D" parent="seatss/Seat1" unique_id=636783602]
@@ -242,6 +260,32 @@ texture = ExtResource("10_hekup")
 region_enabled = true
 region_rect = Rect2(88.9042, 51.57639, 25.401352, 32.739513)
 
-[node name="Waypoint1" type="Marker2D" parent="." unique_id=529539875]
+[node name="Seat2" type="Area2D" parent="seatss" unique_id=706042183]
+
+[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat2" unique_id=521626932]
+position = Vector2(55, -135)
+texture = ExtResource("10_hekup")
+region_enabled = true
+region_rect = Rect2(0, 81.47476, 38.31909, 38.525238)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat2" unique_id=1056795936]
+position = Vector2(56, -139)
+shape = SubResource("RectangleShape2D_w2f55")
+
+[node name="waypointss" type="Node" parent="." unique_id=463387817]
+
+[node name="Waypoint1" type="Marker2D" parent="waypointss" unique_id=529539875]
 position = Vector2(9, -221)
 gizmo_extents = 40.0
+
+[node name="Waypoint2" type="Marker2D" parent="waypointss" unique_id=218480473]
+position = Vector2(29, -129)
+
+[node name="customers" type="Node" parent="." unique_id=1017354552]
+
+[node name="Customer" parent="customers" unique_id=1893898631 instance=ExtResource("11_fcdfh")]
+z_index = 1
+position = Vector2(11, -35)
+
+[node name="Customer2" parent="customers" unique_id=821156017 instance=ExtResource("11_omuhi")]
+position = Vector2(3, 23)

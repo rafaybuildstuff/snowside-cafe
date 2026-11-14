@@ -54,7 +54,6 @@ func _physics_process(_delta: float) -> void:
 				var direction = global_position.direction_to(target_node.global_position)
 				velocity = direction * movement_speed
 				
-				# Keep scale normal while walking
 				animated_sprite.scale = Vector2(1.0, 1.0)
 				
 				if abs(direction.x) > abs(direction.y):
@@ -86,7 +85,6 @@ func sit_down() -> void:
 	current_state = CustomerState.SITTING
 	velocity = Vector2.ZERO
 	
-	# Increase size slightly when sitting so she fits the chair nicely (you can change 1.2 to 1.1 or 1.3 if needed)
 	animated_sprite.scale = Vector2(1.2, 1.2)
 	
 	if animated_sprite.sprite_frames.has_animation("sitting"):
@@ -104,8 +102,28 @@ func sit_down() -> void:
 func start_coffee_countdown() -> void:
 	current_state = CustomerState.DRINKING
 	if prompt_label:
+		prompt_label.visible = true
 		for i in range(3, 0, -1):
 			prompt_label.text = "Drinking... " + str(i)
 			await get_tree().create_timer(1.0).timeout
 			
+		current_state = CustomerState.WAITING_FOR_ORDER
+		prompt_label.text = "One sandwich"
+
+func start_sandwich_countdown() -> void:
+	current_state = CustomerState.DRINKING
+	if prompt_label:
+		prompt_label.visible = true
+		for i in range(3, 0, -1):
+			prompt_label.text = "Eating... " + str(i)
+			await get_tree().create_timer(1.0).timeout
+			
 		prompt_label.visible = false
+	fade_out_and_leave()
+
+func fade_out_and_leave() -> void:
+	current_state = CustomerState.LEAVING
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 1.0)
+	await tween.finished
+	queue_free()

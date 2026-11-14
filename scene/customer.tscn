@@ -7,6 +7,10 @@
 atlas = ExtResource("2_wkrjl")
 region = Rect2(40, 0, 40, 40)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2folu"]
+atlas = ExtResource("2_wkrjl")
+region = Rect2(40, 40, 40, 40)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_uh4kr"]
 atlas = ExtResource("2_wkrjl")
 region = Rect2(0, 0, 40, 40)
@@ -27,10 +31,6 @@ region = Rect2(80, 0, 40, 40)
 atlas = ExtResource("2_wkrjl")
 region = Rect2(160, 0, 40, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2folu"]
-atlas = ExtResource("2_wkrjl")
-region = Rect2(40, 40, 40, 40)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_mel2l"]
 animations = [{
 "frames": [{
@@ -43,10 +43,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uh4kr")
+"texture": SubResource("AtlasTexture_2folu")
 }],
 "loop": 1,
 "name": &"walking backward",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh4kr")
+}],
+"loop": 1,
+"name": &"walking forward",
 "speed": 5.0
 }, {
 "frames": [{
@@ -70,14 +78,6 @@ animations = [{
 "loop": 1,
 "name": &"walking right",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2folu")
-}],
-"loop": 1,
-"name": &"walking toward",
-"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mel2l"]
@@ -91,7 +91,7 @@ script = ExtResource("1_ty3hb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=947971873]
 sprite_frames = SubResource("SpriteFrames_mel2l")
-animation = &"walking backward"
+animation = &"walking forward"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1542544695]
 position = Vector2(2.5, 0.5)
