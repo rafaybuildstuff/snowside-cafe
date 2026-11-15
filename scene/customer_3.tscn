@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bm6c0o4kjqd6g"]
 
+[ext_resource type="Script" uid="uid://cxvwm2mij6p60" path="res://scene/customer_3.gd" id="1_f215r"]
 [ext_resource type="Texture2D" uid="uid://ciqfcmu8n8fnt" path="res://assets/customer.png" id="1_mc7od"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f215r"]
@@ -82,18 +83,24 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_737ee"]
 size = Vector2(20, 34)
 
+[sub_resource type="LabelSettings" id="LabelSettings_nt4qe"]
+font_size = 10
+
 [node name="Customer3" type="CharacterBody2D" unique_id=2040717893]
+script = ExtResource("1_f215r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=57685985]
+position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_mel2l")
 animation = &"walking backward"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=304846420]
-position = Vector2(0, 3)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_737ee")
 
 [node name="Label" type="Label" parent="." unique_id=1497681459]
 offset_left = -18.0
-offset_top = -21.0
+offset_top = -24.0
 offset_right = 22.0
-offset_bottom = 2.0
+offset_bottom = -1.0
+label_settings = SubResource("LabelSettings_nt4qe")

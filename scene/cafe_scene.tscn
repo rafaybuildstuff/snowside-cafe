@@ -73,10 +73,13 @@ size = Vector2(42.5, 34.5)
 font_size = 10
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijeb4"]
-size = Vector2(9.726311, 7.6421313)
+size = Vector2(9.726311, 6.9473906)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2f55"]
 size = Vector2(11, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_73gsv"]
+size = Vector2(12, 10)
 
 [node name="cafe scene" type="Node2D" unique_id=861144632]
 
@@ -265,20 +268,20 @@ region_rect = Rect2(88.9042, 51.57639, 25.401352, 32.739513)
 
 [node name="Seat3" type="Area2D" parent="seatss" unique_id=1806613756]
 z_index = -1
-position = Vector2(57.000004, -223.00002)
+position = Vector2(220, -201.00002)
 scale = Vector2(1.4393939, 1.439394)
+collision_layer = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="seatss/Seat3" unique_id=1400458907]
-visible = false
 z_index = -1
-position = Vector2(113.936844, 7.6421204)
+position = Vector2(2.084198, -4.863142)
 scale = Vector2(0.9030525, 0.97599995)
 texture = ExtResource("10_hekup")
 region_enabled = true
 region_rect = Rect2(88.9042, 51.57639, 25.401352, 32.739513)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat3" unique_id=1184166708]
-position = Vector2(111.852646, 14.242142)
+position = Vector2(0.6947403, 2.0842228)
 shape = SubResource("RectangleShape2D_ijeb4")
 
 [node name="Seat2" type="Area2D" parent="seatss" unique_id=706042183]
@@ -294,17 +297,16 @@ position = Vector2(56, -139)
 shape = SubResource("RectangleShape2D_w2f55")
 
 [node name="Seat4" type="Area2D" parent="seatss" unique_id=163978625]
+position = Vector2(220, -138)
 
-[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat4" unique_id=1878713069]
-visible = false
-position = Vector2(218, -135)
+[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat4" unique_id=747294884]
 texture = ExtResource("10_hekup")
 region_enabled = true
-region_rect = Rect2(0, 81.47476, 38.31909, 38.525238)
+region_rect = Rect2(0, 83.81453, 39.536926, 36.18547)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat4" unique_id=624475184]
-position = Vector2(219, -139)
-shape = SubResource("RectangleShape2D_w2f55")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat4" unique_id=1244217833]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_73gsv")
 
 [node name="waypointss" type="Node" parent="." unique_id=463387817]
 
@@ -314,6 +316,12 @@ gizmo_extents = 40.0
 
 [node name="Waypoint2" type="Marker2D" parent="waypointss" unique_id=218480473]
 position = Vector2(29, -129)
+
+[node name="Waypoint3" type="Marker2D" parent="waypointss" unique_id=1352340575]
+position = Vector2(198, -205)
+
+[node name="Waypoint4" type="Marker2D" parent="waypointss" unique_id=817959092]
+position = Vector2(193, -138)
 
 [node name="customers" type="Node" parent="." unique_id=1017354552]
 
@@ -343,5 +351,8 @@ offset_bottom = 65.00001
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("14_ls2p7")
 
-[node name="upgrade 1" parent="." unique_id=1756008415 instance=ExtResource("11_6g4wj")]
+[node name="updates in cafe" type="Node" parent="." unique_id=2138238227]
+
+[node name="upgrade 1" parent="updates in cafe" unique_id=1756008415 instance=ExtResource("11_6g4wj")]
+z_index = -1
 position = Vector2(219, -170)

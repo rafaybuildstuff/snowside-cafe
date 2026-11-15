@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bxfi3ccmd22r3"]
 
 [ext_resource type="Texture2D" uid="uid://ciqfcmu8n8fnt" path="res://assets/customer.png" id="1_737ee"]
+[ext_resource type="Script" uid="uid://tc02iyjmiklw" path="res://scene/customer_4.gd" id="1_vq0lt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vq0lt"]
 atlas = ExtResource("1_737ee")
@@ -82,11 +83,16 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dpmh"]
 size = Vector2(20, 34)
 
+[sub_resource type="LabelSettings" id="LabelSettings_f215r"]
+font_size = 10
+
 [node name="Customer4" type="CharacterBody2D" unique_id=198006399]
+script = ExtResource("1_vq0lt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1006016307]
+z_index = -1
 sprite_frames = SubResource("SpriteFrames_rn1xw")
-animation = &"walking backward"
+animation = &"sitting"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1687291659]
 position = Vector2(0, 3)
@@ -97,3 +103,4 @@ offset_left = -16.0
 offset_top = -22.0
 offset_right = 24.0
 offset_bottom = 1.0
+label_settings = SubResource("LabelSettings_f215r")

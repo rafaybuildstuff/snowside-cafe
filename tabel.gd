@@ -1,5 +1,8 @@
 extends Area2D
 
+# If true, this table uses Customer 3 & 4. If false, it uses Customer 1 & 2.
+@export var is_second_table: bool = false
+
 enum TableState { 
 	CLEAN_WAITING_COFFEE, 
 	ONE_COFFEE, 
@@ -13,11 +16,22 @@ var state: TableState = TableState.CLEAN_WAITING_COFFEE
 @onready var prompt_label: Label = $Label
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+var current_customers: Array[Node] = []
+
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	if prompt_label:
 		prompt_label.visible = false
 	update_table_appearance()
+	
+	# Link initial Table 1 customers if they exist in the scene
+	if not is_second_table:
+		var current_scene = get_tree().current_scene
+		if current_scene:
+			var c1 = current_scene.find_child("Customer", true, false)
+			var c2 = current_scene.find_child("Customer2", true, false)
+			if c1: current_customers.append(c1)
+			if c2: current_customers.append(c2)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name != "player" and body.name != "playerr":
@@ -45,39 +59,24 @@ func _on_body_entered(body: Node2D) -> void:
 			update_table_appearance()
 			trigger_customers_sandwich()
 
-func get_both_customers() -> Array[Node]:
-	var customers: Array[Node] = []
-	var current_scene = get_tree().current_scene
-	if current_scene:
-		var customers_folder = current_scene.find_child("customers", true, false)
-		if customers_folder:
-			for child in customers_folder.get_children():
-				if child.has_method("start_coffee_countdown"):
-					customers.append(child)
-		else:
-			var c1 = current_scene.get_node_or_null("Customer")
-			var c2 = current_scene.get_node_or_null("Customer2")
-			if c1: customers.append(c1)
-			if c2: customers.append(c2)
-	return customers
-
 func trigger_customers_coffee() -> void:
-	for cust in get_both_customers():
-		cust.start_coffee_countdown()
+	for cust in current_customers:
+		if cust and is_instance_valid(cust) and cust.has_method("start_coffee_countdown"):
+			cust.start_coffee_countdown()
 		
 	await get_tree().create_timer(3.0).timeout
 	state = TableState.CLEAN_WAITING_SANDWICH
 	update_table_appearance()
 
 func trigger_customers_sandwich() -> void:
-	for cust in get_both_customers():
-		if cust.has_method("start_sandwich_countdown"):
+	for cust in current_customers:
+		if cust and is_instance_valid(cust) and cust.has_method("start_sandwich_countdown"):
 			cust.start_sandwich_countdown()
 			
 	# Wait 3 seconds while they finish eating
 	await get_tree().create_timer(3.0).timeout
 	
-	# SPAWN MONEY ON THE LEFT SIDE OF THE TABLE
+	# Spawn money on the left side of this table
 	var money_scene = load("res://scene/money.tscn")
 	if money_scene:
 		var money_instance = money_scene.instantiate()
@@ -86,11 +85,11 @@ func trigger_customers_sandwich() -> void:
 			current_scene.add_child(money_instance)
 			money_instance.global_position = global_position + Vector2(-40, 0)
 
-	# Reset table back to clean, ready for new customers
+	# Reset table back to clean
 	state = TableState.CLEAN_WAITING_COFFEE
 	update_table_appearance()
 	
-	# Automatically spawn a brand new pair of customers for this table
+	# Respawn the correct pair of customers for this specific table
 	spawn_new_customers()
 
 func spawn_new_customers() -> void:
@@ -98,14 +97,22 @@ func spawn_new_customers() -> void:
 	if not current_scene:
 		return
 		
-	var cust1_scene = load("res://scene/customer.tscn")
-	var cust2_scene = load("res://scene/customer_2.tscn")
+	var cust1_scene
+	var cust2_scene
 	
+	if is_second_table:
+		cust1_scene = load("res://scene/customer_3.tscn")
+		cust2_scene = load("res://scene/customer_4.tscn")
+	else:
+		cust1_scene = load("res://scene/customer.tscn")
+		cust2_scene = load("res://scene/customer_2.tscn")
+		
 	if cust1_scene and cust2_scene:
 		var c1 = cust1_scene.instantiate()
 		var c2 = cust2_scene.instantiate()
 		
-		# Add them into the "customers" folder if it exists, otherwise add to root
+		current_customers = [c1, c2]
+		
 		var customers_folder = current_scene.find_child("customers", true, false)
 		if customers_folder:
 			customers_folder.add_child(c1)
@@ -114,7 +121,7 @@ func spawn_new_customers() -> void:
 			current_scene.add_child(c1)
 			current_scene.add_child(c2)
 		
-		# Spawn them inside the cafe at the exact indoor entrance coordinates
+		# Entrance spawn position inside the cafe
 		c1.global_position = Vector2(10, -20)
 		c2.global_position = Vector2(35, 0)
 
