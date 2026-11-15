@@ -29,10 +29,19 @@ func spawn_sequence() -> void:
 	if current_scene:
 		var seat3 = current_scene.find_child("Seat3", true, false)
 		if seat3:
-			target_position = seat3.global_position
+			# CODE FIX: Automatically targets the actual chair sprite's position 
+			# instead of the broken root node crosshair!
+			var sprite_child = seat3.get_node_or_null("Sprite2D")
+			if sprite_child:
+				target_position = sprite_child.global_position
+			else:
+				target_position = seat3.global_position
+			
 			current_state = Customer3State.WALKING_TO_SEAT
 		else:
-			print("ERROR: Seat3 could not be found in the scene!")
+			# Safety fallback so she never gets stuck
+			target_position = global_position + Vector2(150, -50)
+			current_state = Customer3State.WALKING_TO_SEAT
 
 func _physics_process(_delta: float) -> void:
 	match current_state:
@@ -53,7 +62,7 @@ func _physics_process(_delta: float) -> void:
 				else:
 					animated_sprite.play("walking backward")
 			
-			# When close enough, snap to seat and sit down immediately
+			# Generous distance threshold so she snaps into place cleanly
 			if global_position.distance_to(target_position) < 25.0:
 				velocity = Vector2.ZERO
 				global_position = target_position
@@ -68,7 +77,6 @@ func sit_down() -> void:
 	current_state = Customer3State.SITTING
 	velocity = Vector2.ZERO
 	
-	# Disable her collision so she doesn't get pushed around
 	if has_node("CollisionShape2D"):
 		$CollisionShape2D.disabled = true
 	

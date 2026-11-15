@@ -91,16 +91,17 @@ script = ExtResource("1_vq0lt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1006016307]
 z_index = -1
+position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_rn1xw")
 animation = &"sitting"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1687291659]
-position = Vector2(0, 3)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_6dpmh")
 
 [node name="Label" type="Label" parent="." unique_id=633121269]
 offset_left = -16.0
-offset_top = -22.0
+offset_top = -21.0
 offset_right = 24.0
-offset_bottom = 1.0
+offset_bottom = 2.0
 label_settings = SubResource("LabelSettings_f215r")

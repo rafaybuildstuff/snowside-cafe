@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://c1wia85vhmd3o"]
+
+[ext_resource type="Script" uid="uid://dbdxeaha0iv4k" path="res://upgrade_3.gd" id="1_2xpvu"]
+[ext_resource type="Texture2D" uid="uid://dn1h41ydg28qs" path="res://assets/take.png" id="2_8h2ut"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mel2l"]
+size = Vector2(36, 36)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mel2l"]
+font_size = 6
+
+[node name="upgrade 3" type="Area2D" unique_id=1117569094]
+script = ExtResource("1_2xpvu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=110748590]
+texture = ExtResource("2_8h2ut")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1439225675]
+shape = SubResource("RectangleShape2D_mel2l")
+
+[node name="Label" type="Label" parent="." unique_id=239930060]
+texture_filter = 1
+offset_left = -18.0
+offset_top = -13.0
+offset_right = 18.0
+offset_bottom = 10.0
+text = "Unlock 
+Table: $20"
+label_settings = SubResource("LabelSettings_mel2l")
+horizontal_alignment = 1
+vertical_alignment = 1

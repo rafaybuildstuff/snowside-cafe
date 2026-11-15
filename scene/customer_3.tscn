@@ -90,17 +90,17 @@ font_size = 10
 script = ExtResource("1_f215r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=57685985]
-position = Vector2(0, -4)
+position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_mel2l")
 animation = &"walking backward"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=304846420]
-position = Vector2(0, -1)
+position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_737ee")
 
 [node name="Label" type="Label" parent="." unique_id=1497681459]
 offset_left = -18.0
-offset_top = -24.0
+offset_top = -25.0
 offset_right = 22.0
-offset_bottom = -1.0
+offset_bottom = -2.0
 label_settings = SubResource("LabelSettings_nt4qe")

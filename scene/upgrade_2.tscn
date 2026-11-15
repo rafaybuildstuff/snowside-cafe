@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cejpry27ewtvo"]
+
+[ext_resource type="Texture2D" uid="uid://dn1h41ydg28qs" path="res://assets/take.png" id="1_2vd5l"]
+[ext_resource type="Script" uid="uid://dyugqaxudlk5k" path="res://scene/upgrade_2.gd" id="1_yu6h3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mel2l"]
+size = Vector2(36, 36)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mel2l"]
+font_size = 6
+
+[node name="Upgrade2" type="Area2D" unique_id=999416247]
+script = ExtResource("1_yu6h3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1172787196]
+texture = ExtResource("1_2vd5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=812001890]
+shape = SubResource("RectangleShape2D_mel2l")
+
+[node name="Label" type="Label" parent="." unique_id=1045514489]
+texture_filter = 1
+offset_left = -18.0
+offset_top = -12.0
+offset_right = 19.0
+offset_bottom = 9.0
+text = "Unlock new 
+Lounge: $30"
+label_settings = SubResource("LabelSettings_mel2l")
+horizontal_alignment = 1
+vertical_alignment = 1
