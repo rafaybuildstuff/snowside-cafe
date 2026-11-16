@@ -93,7 +93,7 @@ script = ExtResource("1_vq0lt")
 z_index = -1
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_rn1xw")
-animation = &"sitting"
+animation = &"walking backward"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1687291659]
 position = Vector2(0, 4)

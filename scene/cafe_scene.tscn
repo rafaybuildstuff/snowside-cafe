@@ -11,12 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://bjfw8vl0rginc" path="res://scene/tabel.tscn" id="9_ohn2x"]
 [ext_resource type="Texture2D" uid="uid://b22g6huuuh675" path="res://assets/table and chair.png" id="10_hekup"]
 [ext_resource type="PackedScene" uid="uid://bbku0osqg1jqs" path="res://scene/upgrade_1.tscn" id="11_6g4wj"]
-[ext_resource type="PackedScene" uid="uid://dl123lcutqgwg" path="res://scene/customer.tscn" id="11_fcdfh"]
-[ext_resource type="PackedScene" uid="uid://cmvxaw6qtljfk" path="res://scene/customer_2.tscn" id="11_omuhi"]
 [ext_resource type="FontFile" uid="uid://d0ebs3dw125h3" path="res://assets/heading.ttf" id="13_omuhi"]
 [ext_resource type="Texture2D" uid="uid://cybu3m3wdq4sr" path="res://assets/money.png" id="14_ls2p7"]
+[ext_resource type="PackedScene" uid="uid://b71w4btlv3mxt" path="res://scene/furniture.tscn" id="16_rga5e"]
 [ext_resource type="Texture2D" uid="uid://ykf2606vwy71" path="res://assets/fence.png" id="16_ucgst"]
-[ext_resource type="PackedScene" uid="uid://c1wia85vhmd3o" path="res://scene/upgrade_3.tscn" id="17_4pvwk"]
+[ext_resource type="AudioStream" uid="uid://bt3rkxxycrjyv" path="res://music/2 bg.mp3" id="17_4pvwk"]
 [ext_resource type="PackedScene" uid="uid://cejpry27ewtvo" path="res://scene/upgrade_2.tscn" id="17_rga5e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kw27q"]
@@ -98,10 +97,10 @@ position = Vector2(38, -1)
 [node name="Camera2D" type="Camera2D" parent="playerr" unique_id=606543960]
 position = Vector2(-38, 1)
 zoom = Vector2(2.5, 2.5)
-limit_left = -80
-limit_top = -323
-limit_right = 562
-limit_bottom = 319
+limit_left = -79
+limit_top = -322
+limit_right = 563
+limit_bottom = 238
 
 [node name="blocksss" type="Node" parent="." unique_id=1549077591]
 
@@ -259,64 +258,14 @@ texture = ExtResource("10_hekup")
 region_enabled = true
 region_rect = Rect2(88.9042, 51.57639, 25.401352, 32.739513)
 
-[node name="Seat5" type="Area2D" parent="seatss" unique_id=1315192045]
-z_index = -1
-position = Vector2(422, 48)
-scale = Vector2(1.4393939, 1.439394)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat5" unique_id=1196087050]
-position = Vector2(-1.3894768, 14.242142)
-shape = SubResource("RectangleShape2D_ijeb4")
-
-[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat5" unique_id=2053741195]
-z_index = -1
-position = Vector2(-4.8631606, 13.894747)
-scale = Vector2(0.9030525, 0.97599995)
-texture = ExtResource("10_hekup")
-region_enabled = true
-region_rect = Rect2(88.9042, 51.57639, 25.401352, 32.739513)
-
-[node name="Seat6" type="Area2D" parent="seatss" unique_id=1981755928]
-z_index = -1
-position = Vector2(221.00002, 48.000004)
-scale = Vector2(1.4393939, 1.439394)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat6" unique_id=2078729526]
-position = Vector2(-1.3894768, 14.242142)
-shape = SubResource("RectangleShape2D_ijeb4")
-
-[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat6" unique_id=173965171]
-z_index = -1
-position = Vector2(-4.8631606, 13.894747)
-scale = Vector2(0.9030525, 0.97599995)
-texture = ExtResource("10_hekup")
-region_enabled = true
-region_rect = Rect2(88.9042, 51.57639, 25.401352, 32.739513)
-
-[node name="Seat7" type="Area2D" parent="seatss" unique_id=172198494]
-z_index = -1
-position = Vector2(45, 48.000004)
-scale = Vector2(1.4393939, 1.439394)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat7" unique_id=72461176]
-position = Vector2(-1.3894768, 14.242142)
-shape = SubResource("RectangleShape2D_ijeb4")
-
-[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat7" unique_id=2003798776]
-z_index = -1
-position = Vector2(-4.8631606, 13.894747)
-scale = Vector2(0.9030525, 0.97599995)
-texture = ExtResource("10_hekup")
-region_enabled = true
-region_rect = Rect2(88.9042, 51.57639, 25.401352, 32.739513)
-
 [node name="Seat3" type="Area2D" parent="seatss" unique_id=1806613756]
-z_index = -1
+z_index = -2
 position = Vector2(218, -197.00002)
 scale = Vector2(1.4393939, 1.439394)
 collision_layer = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="seatss/Seat3" unique_id=1661009976]
+z_index = -2
 position = Vector2(2.0842137, -6.2526226)
 scale = Vector2(0.83744377, 0.87052613)
 texture = ExtResource("10_hekup")
@@ -328,15 +277,16 @@ position = Vector2(0, 1.04904175e-05)
 shape = SubResource("RectangleShape2D_07ajx")
 
 [node name="Seat2" type="Area2D" parent="seatss" unique_id=706042183]
+position = Vector2(55, -137)
 
 [node name="Sprite2D" type="Sprite2D" parent="seatss/Seat2" unique_id=521626932]
-position = Vector2(55, -135)
+position = Vector2(0, 2)
 texture = ExtResource("10_hekup")
 region_enabled = true
 region_rect = Rect2(0, 81.47476, 38.31909, 38.525238)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat2" unique_id=1056795936]
-position = Vector2(56, -139)
+position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_w2f55")
 
 [node name="Seat4" type="Area2D" parent="seatss" unique_id=163978625]
@@ -349,45 +299,6 @@ region_rect = Rect2(0, 83.81453, 39.536926, 36.18547)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat4" unique_id=1244217833]
 position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_73gsv")
-
-[node name="Seat8" type="Area2D" parent="seatss" unique_id=551884325]
-position = Vector2(39, 144)
-
-[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat8" unique_id=1260604624]
-position = Vector2(-1, 3)
-texture = ExtResource("10_hekup")
-region_enabled = true
-region_rect = Rect2(0, 83.81453, 39.536926, 36.18547)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat8" unique_id=535432855]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_73gsv")
-
-[node name="Seat9" type="Area2D" parent="seatss" unique_id=1020626758]
-position = Vector2(212, 143)
-
-[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat9" unique_id=1795287736]
-position = Vector2(1, 3)
-texture = ExtResource("10_hekup")
-region_enabled = true
-region_rect = Rect2(0, 83.81453, 39.536926, 36.18547)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat9" unique_id=580221764]
-position = Vector2(-1, 2)
-shape = SubResource("RectangleShape2D_73gsv")
-
-[node name="Seat10" type="Area2D" parent="seatss" unique_id=1710184422]
-position = Vector2(413, 138)
-
-[node name="Sprite2D" type="Sprite2D" parent="seatss/Seat10" unique_id=699565548]
-position = Vector2(1, 8)
-texture = ExtResource("10_hekup")
-region_enabled = true
-region_rect = Rect2(0, 83.81453, 39.536926, 36.18547)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="seatss/Seat10" unique_id=593068293]
-position = Vector2(1.5, 11.5)
 shape = SubResource("RectangleShape2D_73gsv")
 
 [node name="waypointss" type="Node" parent="." unique_id=463387817]
@@ -405,15 +316,6 @@ gizmo_extents = 57.6
 
 [node name="Waypoint4" type="Marker2D" parent="waypointss" unique_id=817959092]
 position = Vector2(193, -138)
-
-[node name="customers" type="Node" parent="." unique_id=1017354552]
-
-[node name="Customer" parent="customers" unique_id=1893898631 instance=ExtResource("11_fcdfh")]
-z_index = 1
-position = Vector2(11, -35)
-
-[node name="Customer2" parent="customers" unique_id=821156017 instance=ExtResource("11_omuhi")]
-position = Vector2(3, 23)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1670507349]
 
@@ -436,22 +338,14 @@ texture = ExtResource("14_ls2p7")
 
 [node name="updates in cafe" type="Node" parent="." unique_id=2138238227]
 
-[node name="upgrade 1" parent="updates in cafe" unique_id=1756008415 instance=ExtResource("11_6g4wj")]
+[node name="upgrade 1" parent="updates in cafe" unique_id=1756008415 node_paths=PackedStringArray("target_table") instance=ExtResource("11_6g4wj")]
 z_index = -1
-position = Vector2(219, -170)
+position = Vector2(219, -171)
+target_table = NodePath("../../tabelss/Tabel2")
 
 [node name="Upgrade2" parent="updates in cafe" unique_id=999416247 instance=ExtResource("17_rga5e")]
 z_index = -1
 position = Vector2(271, 25)
-
-[node name="upgrade 3" parent="updates in cafe" unique_id=1117569094 instance=ExtResource("17_4pvwk")]
-position = Vector2(412, 109)
-
-[node name="upgrade 4" parent="updates in cafe" unique_id=1983205418 instance=ExtResource("17_4pvwk")]
-position = Vector2(211, 109)
-
-[node name="upgrade 5" parent="updates in cafe" unique_id=1728497592 instance=ExtResource("17_4pvwk")]
-position = Vector2(39, 109)
 
 [node name="barriers" type="Node" parent="." unique_id=711941967]
 
@@ -552,6 +446,7 @@ texture = ExtResource("16_ucgst")
 [node name="tabelss" type="Node" parent="." unique_id=1054650331]
 
 [node name="Tabel" parent="tabelss" unique_id=806302714 instance=ExtResource("9_ohn2x")]
+z_index = -1
 position = Vector2(58, -175)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="tabelss/Tabel" unique_id=312507981]
@@ -567,11 +462,47 @@ offset_right = 280.0
 offset_bottom = -40.33333
 label_settings = SubResource("LabelSettings_ccijo")
 
-[node name="Tabel3" parent="tabelss" unique_id=714907687 instance=ExtResource("9_ohn2x")]
-position = Vector2(215, 105)
+[node name="Tabel2" parent="tabelss" unique_id=714907687 instance=ExtResource("9_ohn2x")]
+visible = false
+z_index = -1
+position = Vector2(222.00002, -173)
+scale = Vector2(1.4, 1.4)
+use_alternate_customers = true
 
-[node name="Tabel4" parent="tabelss" unique_id=1162141650 instance=ExtResource("9_ohn2x")]
-position = Vector2(40, 106)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="tabelss/Tabel2" unique_id=1188377902]
+position = Vector2(253.16667, -45.500015)
+scale = Vector2(0.6666667, 0.6666667)
+shape = SubResource("RectangleShape2D_udj8g")
 
-[node name="Tabel2" parent="tabelss" unique_id=576721031 instance=ExtResource("9_ohn2x")]
-position = Vector2(416, 105)
+[node name="Label2" type="Label" parent="tabelss/Tabel2" unique_id=789635316]
+texture_filter = 1
+offset_left = 240.00002
+offset_top = -63.33333
+offset_right = 280.0
+offset_bottom = -40.33333
+label_settings = SubResource("LabelSettings_ccijo")
+
+[node name="furnitureeeee" type="Node" parent="." unique_id=921418600]
+
+[node name="furniture2" parent="furnitureeeee" unique_id=877046373 instance=ExtResource("16_rga5e")]
+modulate = Color(1, 1, 1, 0.8392157)
+position = Vector2(396.00003, 138.00002)
+rotation = -1.5707964
+scale = Vector2(1.5, 1.5)
+
+[node name="furniture3" parent="furnitureeeee" unique_id=432340290 instance=ExtResource("16_rga5e")]
+modulate = Color(1, 1, 1, 0.8392157)
+position = Vector2(229.00003, 138.00002)
+rotation = -1.5707964
+scale = Vector2(1.5, 1.5)
+
+[node name="furniture4" parent="furnitureeeee" unique_id=1756333158 instance=ExtResource("16_rga5e")]
+modulate = Color(1, 1, 1, 0.8392157)
+position = Vector2(48, 138.00002)
+rotation = -1.5707964
+scale = Vector2(1.5, 1.5)
+
+[node name="bg music" type="AudioStreamPlayer2D" parent="." unique_id=2120060040]
+stream = ExtResource("17_4pvwk")
+volume_db = 3.0
+autoplay = true

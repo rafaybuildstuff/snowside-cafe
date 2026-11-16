@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b71w4btlv3mxt"]
+
+[ext_resource type="Texture2D" uid="uid://b22g6huuuh675" path="res://assets/table and chair.png" id="1_f2bpy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mel2l"]
+size = Vector2(31, 80)
+
+[node name="furniture" type="StaticBody2D" unique_id=432340290]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=182233483]
+texture = ExtResource("1_f2bpy")
+region_enabled = true
+region_rect = Rect2(0, 0, 37.217453, 44.082428)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1084308582]
+position = Vector2(3, -23)
+texture = ExtResource("1_f2bpy")
+region_enabled = true
+region_rect = Rect2(83.48689, 52.736862, 36.513107, 31.815796)
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1577738648]
+position = Vector2(2, 24)
+texture = ExtResource("1_f2bpy")
+region_enabled = true
+region_rect = Rect2(8.427727, 83.86166, 25.144737, 36.138344)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=457626810]
+position = Vector2(1.5, 4)
+shape = SubResource("RectangleShape2D_mel2l")

@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bwjw7q7jq2inm" path="res://assets/assets (outside).png" id="6_85dgi"]
 [ext_resource type="Texture2D" uid="uid://bfgqujd15kj1y" path="res://assets/jobless person.png" id="7_1pv4f"]
 [ext_resource type="Script" uid="uid://br8k73u1s0v5g" path="res://scene/teleportarea.gd" id="8_6nb34"]
+[ext_resource type="AudioStream" uid="uid://b4a7y7y26bn2i" path="res://music/1 bg.mp3" id="9_u1suu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q77l7"]
 texture = ExtResource("1_0n7t8")
@@ -140,5 +141,10 @@ script = ExtResource("8_6nb34")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="teleportarea" unique_id=549939134]
 position = Vector2(164.5, -49.5)
 shape = SubResource("RectangleShape2D_mel2l")
+
+[node name="background music" type="AudioStreamPlayer2D" parent="." unique_id=1888740628]
+stream = ExtResource("9_u1suu")
+volume_db = 5.0
+autoplay = true
 
 [connection signal="body_entered" from="teleportarea" to="player" method="_on_teleportarea_body_entered"]

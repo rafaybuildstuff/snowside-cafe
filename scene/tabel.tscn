@@ -67,7 +67,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nt4qe"]
-size = Vector2(50.666668, 28)
+size = Vector2(36.666668, 28)
 
 [sub_resource type="LabelSettings" id="LabelSettings_3cfvr"]
 font_size = 10
@@ -80,12 +80,13 @@ scale = Vector2(1.5, 1.5)
 script = ExtResource("1_nt4qe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=849438091]
+z_index = -1
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_mel2l")
 animation = &"clean"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1623991680]
-position = Vector2(-1.3333349, 2)
+position = Vector2(-1.666666, 2)
 shape = SubResource("RectangleShape2D_nt4qe")
 
 [node name="Label" type="Label" parent="." unique_id=1225512926]

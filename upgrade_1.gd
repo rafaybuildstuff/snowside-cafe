@@ -1,58 +1,67 @@
 extends Area2D
 
-@export var table_cost: int = 20
+@export var upgrade_cost: int = 20
+@export var target_table: Node2D # Assign Table 2 in the Main Cafe scene Inspector
 @onready var label: Label = $Label
+@onready var sfx = get_node_or_null("music")
+
+var purchased: bool = false
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	if label:
-		label.text = "Unlock\nTable: $20"
-		
-	# Automatically hide Seat3 and Seat4 at the start of the game
-	call_deferred("set_chairs_active", false)
+		label.text = "Unlock\nTable: $" + str(upgrade_cost)
+	call_deferred("_set_table_active", false)
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.has_method("add_money") and "score" in body:
-		if body.score >= table_cost:
-			body.add_money(-table_cost)
-			call_deferred("spawn_new_cafe_content")
-		else:
-			print("Not enough money! Need $20.")
-
-func spawn_new_cafe_content() -> void:
-	var current_scene = get_tree().current_scene
-	if not current_scene:
+	if purchased:
 		return
-		
-	# 1. Spawn Table 2 and mark it as the second table
-	var table_scene = load("res://scene/tabel.tscn") 
-	if table_scene:
-		var new_table = table_scene.instantiate()
-		new_table.is_second_table = true # Tells this table to use Customer 3 & 4
-		current_scene.add_child(new_table)
-		new_table.global_position = global_position
-		
-		# Immediately spawn Customer 3 and Customer 4 for this new table!
-		new_table.spawn_new_customers()
-		
-	# 2. Reveal Seat3 and Seat4 and enable their collisions
-	set_chairs_active(true)
-	
-	# 3. Remove the upgrade zone permanently
+	if body.name == "player" or body.name == "playerr":
+		if "score" in body:
+			if body.score >= upgrade_cost:
+				purchased = true
+				body.add_money(-upgrade_cost)
+				unlock_table()
+			else:
+				print("Not enough money! Need $" + str(upgrade_cost))
+
+func unlock_table() -> void:
+	_set_table_active(true)
+
+	var current_scene = get_tree().current_scene
+	if current_scene:
+		for item_name in ["Seat3", "Seat4", "Waypoint3", "Waypoint4"]:
+			var item = current_scene.find_child(item_name, true, false)
+			if item and item is CanvasItem:
+				item.visible = true
+
+	visible = false
+	set_deferred("monitoring", false)
+	if sfx and sfx.stream:
+		sfx.play()
+		await sfx.finished
+
 	queue_free()
 
-func set_chairs_active(is_active: bool) -> void:
-	var current_scene = get_tree().current_scene
-	if not current_scene:
+func _set_table_active(active: bool) -> void:
+	var table = target_table
+	if not table and get_tree().current_scene:
+		for node in get_tree().current_scene.find_children("*", "Area2D", true, false):
+			if node.get("use_alternate_customers") == true:
+				table = node
+				break
+
+	if not table:
 		return
-		
-	for chair_name in ["Seat3", "Seat4"]:
-		var chair = current_scene.find_child(chair_name, true, false)
-		if chair:
-			chair.visible = is_active
-			if chair.has_node("Sprite2D"):
-				var sprite = chair.get_node("Sprite2D")
-				sprite.visible = is_active
-				sprite.modulate.a = 1.0 if is_active else 0.0
-			if chair.has_node("CollisionShape2D"):
-				chair.get_node("CollisionShape2D").disabled = !is_active
+
+	table.visible = active
+	if table is Area2D:
+		table.set_deferred("monitoring", active)
+		table.set_deferred("monitorable", active)
+
+	# Disable/enable all CollisionShape2D nodes inside the table (including StaticBody2D)
+	for col in table.find_children("*", "CollisionShape2D", true, false):
+		col.set_deferred("disabled", not active)
+
+	if active and table.has_method("spawn_new_customers"):
+		table.call_deferred("spawn_new_customers")

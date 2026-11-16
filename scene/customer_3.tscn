@@ -80,23 +80,25 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_737ee"]
-size = Vector2(20, 34)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f215r"]
+radius = 7.0
+height = 26.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_nt4qe"]
 font_size = 10
 
 [node name="Customer3" type="CharacterBody2D" unique_id=2040717893]
+z_index = -2
 script = ExtResource("1_f215r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=57685985]
-position = Vector2(0, -6)
+position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_mel2l")
 animation = &"walking backward"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=304846420]
 position = Vector2(0, -3)
-shape = SubResource("RectangleShape2D_737ee")
+shape = SubResource("CapsuleShape2D_f215r")
 
 [node name="Label" type="Label" parent="." unique_id=1497681459]
 offset_left = -18.0

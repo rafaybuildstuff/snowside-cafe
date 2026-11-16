@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var unlock_cost: int = 5
+@export var unlock_cost: int = 30
 @onready var label: Label = $Label
 
 func _ready() -> void:
@@ -29,10 +29,10 @@ func unlock_area() -> void:
 	if barriers:
 		barriers.queue_free()
 		
-	# 2. Reveal and activate everything inside "updates in cafe" safely using set_deferred
-	var updates_folder = current_scene.find_child("updates in cafe", true, false)
-	if updates_folder:
-		for child in updates_folder.get_children():
+	# 2. Reveal and activate everything inside the "furniture" folder safely using set_deferred
+	var furniture_folder = current_scene.find_child("furniture", true, false)
+	if furniture_folder:
+		for child in furniture_folder.get_children():
 			if child is CanvasItem:
 				child.visible = true
 			if child is Area2D:

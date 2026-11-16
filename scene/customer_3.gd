@@ -1,123 +1,117 @@
 extends CharacterBody2D
 
-@export var movement_speed: float = 80.0
+@export var movement_speed: float = 90.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var prompt_label: Label = $Label
 
-enum Customer3State { WAITING_TO_SPAWN, WALKING_TO_SEAT, SITTING, WAITING_FOR_ORDER, DRINKING, LEAVING }
-var current_state: Customer3State = Customer3State.WAITING_TO_SPAWN
+enum CustomerState { WAITING_TO_SPAWN, WALKING_PATH, SITTING, WAITING_FOR_ORDER, DRINKING, LEAVING }
+var current_state: CustomerState = CustomerState.WAITING_TO_SPAWN
 
-var target_position: Vector2 = Vector2.ZERO
+var path_points: Array[Node2D] = []
+var current_point_index: int = 0
 
 func _ready() -> void:
 	modulate.a = 0.0
 	if prompt_label:
 		prompt_label.visible = false
-	spawn_sequence()
-
-func spawn_sequence() -> void:
-	await get_tree().create_timer(1.0).timeout
-	
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 1.0, 1.0)
-	await tween.finished
-	
-	await get_tree().process_frame
-	
-	var current_scene = get_tree().current_scene
-	if current_scene:
-		var seat3 = current_scene.find_child("Seat3", true, false)
-		if seat3:
-			# CODE FIX: Automatically targets the actual chair sprite's position 
-			# instead of the broken root node crosshair!
-			var sprite_child = seat3.get_node_or_null("Sprite2D")
-			if sprite_child:
-				target_position = sprite_child.global_position
-			else:
-				target_position = seat3.global_position
-			
-			current_state = Customer3State.WALKING_TO_SEAT
-		else:
-			# Safety fallback so she never gets stuck
-			target_position = global_position + Vector2(150, -50)
-			current_state = Customer3State.WALKING_TO_SEAT
+	tween.tween_property(self, "modulate:a", 1.0, 0.5)
+
+# Receives their assigned waypoint and unique seat from the table script
+func set_custom_path(waypoint_node: Node2D, seat_node: Node2D) -> void:
+	path_points.clear()
+	if waypoint_node:
+		path_points.append(waypoint_node)
+	if seat_node:
+		path_points.append(seat_node)
+	current_point_index = 0
+	current_state = CustomerState.WALKING_PATH
 
 func _physics_process(_delta: float) -> void:
 	match current_state:
-		Customer3State.WALKING_TO_SEAT:
-			var direction = global_position.direction_to(target_position)
-			velocity = direction * movement_speed
-			
-			animated_sprite.scale = Vector2(1.0, 1.0)
-			
-			if abs(direction.x) > abs(direction.y):
-				if direction.x > 0:
-					animated_sprite.play("walking right")
-				else:
-					animated_sprite.play("walking left")
-			else:
-				if direction.y > 0:
-					animated_sprite.play("walking toward")
-				else:
-					animated_sprite.play("walking backward")
-			
-			# Generous distance threshold so she snaps into place cleanly
-			if global_position.distance_to(target_position) < 25.0:
-				velocity = Vector2.ZERO
-				global_position = target_position
-				sit_down()
+		CustomerState.WALKING_PATH:
+			if current_point_index < path_points.size():
+				var target_node = path_points[current_point_index]
+				if not target_node:
+					current_point_index += 1
+					return
+					
+				var target_pos = target_node.global_position
+				var direction = global_position.direction_to(target_pos)
+				velocity = direction * movement_speed
 				
-		Customer3State.SITTING, Customer3State.WAITING_FOR_ORDER, Customer3State.DRINKING:
+				animated_sprite.scale = Vector2(1.0, 1.0)
+				
+				if abs(direction.x) > abs(direction.y):
+					if direction.x > 0:
+						animated_sprite.play("walking right")
+					else:
+						animated_sprite.play("walking left")
+				else:
+					if direction.y > 0:
+						if animated_sprite.sprite_frames.has_animation("walking forward"):
+							animated_sprite.play("walking forward")
+						else:
+							animated_sprite.play("walking right")
+					else:
+						if animated_sprite.sprite_frames.has_animation("walking backward"):
+							animated_sprite.play("walking backward")
+						else:
+							animated_sprite.play("walking left")
+				
+				if global_position.distance_to(target_pos) < 8.0:
+					current_point_index += 1
+					if current_point_index >= path_points.size():
+						velocity = Vector2.ZERO
+						global_position = target_pos
+						sit_down()
+			else:
+				velocity = Vector2.ZERO
+				
+		CustomerState.SITTING, CustomerState.WAITING_FOR_ORDER, CustomerState.DRINKING:
 			velocity = Vector2.ZERO
 
 	move_and_slide()
 
 func sit_down() -> void:
-	current_state = Customer3State.SITTING
+	current_state = CustomerState.SITTING
 	velocity = Vector2.ZERO
-	
 	if has_node("CollisionShape2D"):
-		$CollisionShape2D.disabled = true
-	
+		$CollisionShape2D.set_deferred("disabled", true)
 	animated_sprite.scale = Vector2(1.2, 1.2)
-	
 	if animated_sprite.sprite_frames.has_animation("sitting"):
 		animated_sprite.play("sitting")
-	
 	animated_sprite.flip_h = false
 	
 	await get_tree().create_timer(0.2).timeout
-	
-	current_state = Customer3State.WAITING_FOR_ORDER
+	current_state = CustomerState.WAITING_FOR_ORDER
 	if prompt_label:
 		prompt_label.text = "One coffee"
 		prompt_label.visible = true
 
 func start_coffee_countdown() -> void:
-	current_state = Customer3State.DRINKING
+	current_state = CustomerState.DRINKING
 	if prompt_label:
 		prompt_label.visible = true
 		for i in range(3, 0, -1):
 			prompt_label.text = "Drinking... " + str(i)
 			await get_tree().create_timer(1.0).timeout
-			
-		current_state = Customer3State.WAITING_FOR_ORDER
+		current_state = CustomerState.WAITING_FOR_ORDER
 		prompt_label.text = "One sandwich"
 
 func start_sandwich_countdown() -> void:
-	current_state = Customer3State.DRINKING
+	current_state = CustomerState.DRINKING
 	if prompt_label:
 		prompt_label.visible = true
 		for i in range(3, 0, -1):
 			prompt_label.text = "Eating... " + str(i)
 			await get_tree().create_timer(1.0).timeout
-			
 		prompt_label.visible = false
 	fade_out_and_leave()
 
 func fade_out_and_leave() -> void:
-	current_state = Customer3State.LEAVING
+	current_state = CustomerState.LEAVING
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 1.0)
 	await tween.finished
